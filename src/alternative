@@ -1,0 +1,15 @@
+Game Plan
+
+Mutation alt
+     //just mutating and not copying. need to send a copy
+      //compare the
+      //console.log(newState);
+      //(todos[i].id) look for the id in each todo in the array of todos.
+
+look in mdn bookmarked tabs to figure out method for searching for ID in index todo object
+
+      //map through the data we're sending over from the alert handleSave which is sending id, text and priority 
+      //make a copy of todos
+      //find the index where that id is, inside the copy of todos, use findindex
+      //change the text and priority
+      //update state with copy
