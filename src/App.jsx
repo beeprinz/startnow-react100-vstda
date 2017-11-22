@@ -29,16 +29,32 @@ class App extends Component { //parent component
 
   handleSave(id, text, priority) {
     console.log('console log', id, text, priority)
-      var newState = this.state.slice(); //creates copy of array of todos START HERE!
-      //match the copied todo to the edited(findindex)
+      var newState = this.state.todos.slice(); //creates copy of array of todos START HERE!
+      console.log('slice method test', newState); //Looks like it's working, YAY!
+      //match the copied todo to the edited(findindex), looking for the matching ID?
+      
+
+        var indexId = newState.findIndex((todoCurrentValue) => todoCurrentValue.id === id);
+        console.log('indexId console log', indexId)
+        console.log(this.state.todos[indexId]);
+
+
+         newState[indexId] = {id: id, text: text, priority: priority}; 
+         this.setState({todos: newState});
+
+
+      //itemCurrentValue is each individual todo in the todos array. 
+      //newState variable is the sliced todos array that is a copy of the original
+
+
+      
       //now need to update the state of the original todo object
       //set state of new todos array 
       //alg to find index (for loop, map, for each) to find index of todo that matches using ID
 
-      newState.todos[index] = {id: id, text: text, priority: priority}; 
-      this.setState(newState);
+      
 
-
+  
   }
 
   handleTodo(e) {

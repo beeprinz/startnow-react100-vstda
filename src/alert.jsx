@@ -34,10 +34,12 @@ class Alert extends Component {
   }
   
   handleSave(e){
-    //console.log('hello from aler.handlesave')
- //newPriorityState and newTextState? need to update state of the original todo 
+    //console.log('hello from alert.handlesave')
+  
     this.props.onSave(this.props.todo.id, this.state.text, this.state.priority);
-    this.setState({editEnabled: false})
+    this.setState({editEnabled: false}) 
+    //this was supposed to collapse the edit form by setting alert editenabled state back to false
+    
   }
   //save needs to update the state of the original todo by using the ID 
 
