@@ -37,6 +37,8 @@ class App extends Component { //parent component
         var indexId = newState.findIndex((todoCurrentValue) => todoCurrentValue.id === id);
         console.log('indexId console log', indexId)
         console.log(this.state.todos[indexId]);
+        //hi
+        
 
 
          newState[indexId] = {id: id, text: text, priority: priority}; 
