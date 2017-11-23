@@ -17,6 +17,7 @@ class App extends Component { //parent component
     this.handlePriority = this.handlePriority.bind(this);
     this.handleTodo = this.handleTodo.bind(this);
     this.handleSave = this.handleSave.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   handleText(e) {
@@ -29,34 +30,28 @@ class App extends Component { //parent component
 
   handleSave(id, text, priority) {
     console.log('console log', id, text, priority)
-      var newState = this.state.todos.slice(); //creates copy of array of todos START HERE!
-      console.log('slice method test', newState); //Looks like it's working, YAY!
-      //match the copied todo to the edited(findindex), looking for the matching ID?
+      var newState = this.state.todos.slice(); //creates copy of array of todos 
+      console.log('slice method test', newState); 
       
-
         var indexId = newState.findIndex((todoCurrentValue) => todoCurrentValue.id === id);
+        //matching the original todo id with the edited todo id
         console.log('indexId console log', indexId)
         console.log(this.state.todos[indexId]);
-        //hi
-        
-
 
          newState[indexId] = {id: id, text: text, priority: priority}; 
          this.setState({todos: newState});
 
+      //todoCurrentValue is each individual todo in the todos array. 
+      //newState variable is the sliced todos array that is a copy of the original  
+  }  
 
-      //itemCurrentValue is each individual todo in the todos array. 
-      //newState variable is the sliced todos array that is a copy of the original
+  handleDelete(id){
+    var deleteState = this.state.todos.slice();
 
+    var deleteIndexId = deleteState.findIndex((todoCurrentValue) => todoCurrentValue.id === id); 
 
-      
-      //now need to update the state of the original todo object
-      //set state of new todos array 
-      //alg to find index (for loop, map, for each) to find index of todo that matches using ID
-
-      
-
-  
+    deleteState.splice(deleteIndexId, 1);
+    this.setState({todos: deleteState});
   }
 
   handleTodo(e) {
@@ -68,8 +63,6 @@ class App extends Component { //parent component
     const userText = this.state.text;
     const userPriority = this.state.priority;
     const todos = this.state.todos;
-    
-    
 
     todos.push({
       id: this.count++,
@@ -82,10 +75,6 @@ class App extends Component { //parent component
       todos:todos 
     })
   }
-
-  // handleChangeId(id){
-  //   const Index = this.state.todos.findIndex((todo) => todo.id === id);
-  // } 
 
   render() {
     return (
@@ -103,7 +92,7 @@ class App extends Component { //parent component
                       <div className="form-group">
                         <label htmlFor="textArea">I want to...</label>
                         <textarea
-                          className="form-control"
+                          className="form-control create-todo-text" 
                           id="textArea"
                           rows="3"
                           onChange={this.handleText}
@@ -114,7 +103,7 @@ class App extends Component { //parent component
                           How much of a priority is this?!
                         </label>
                         <select
-                          className="mt-2 mb-4 form-control"
+                          className="mt-2 mb-4 form-control create-todo-priority"
                           id="exampleFormControlSelect1"
                           onChange={this.handlePriority} 
                           defaultValue={this.state}
@@ -128,7 +117,7 @@ class App extends Component { //parent component
                     
                       <button
                         type="submit"
-                        className="btn btn-primary btn-block"
+                        className="btn btn-primary btn-block create-todo"
                       >
                         Add
                       </button>
@@ -143,11 +132,13 @@ class App extends Component { //parent component
                 <div className="card-body" />
                 <div className="container">
                   {this.state.todos.map((todo, index) => {
-                    console.log(index);
+                    //console.log(index);
                     return <Alert
                       todo={todo}
                       key={index}
-                      onSave={this.handleSave} //these are all props that are being rendered in alert
+                      onSave={this.handleSave} 
+                      onDelete={this.handleDelete}
+                      //these are all props that are being rendered in alert
                     />
                     //are we going to put the id of the todo in this function?
                   })

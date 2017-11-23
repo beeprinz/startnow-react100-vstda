@@ -12,10 +12,8 @@ class Alert extends Component {
     this.handleEditTodo = this.handleEditTodo.bind(this);
     this.handleEditTodoPriority = this.handleEditTodoPriority.bind(this);
     this.handleSave = this.handleSave.bind(this);
-    
-    // this.handleEditPriority = this.handleEditPriority.bind(this);
-    // this.handleDelete = this.handleDelete.bind(this);
-    // this.handleSave = this.handleSave.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+  
   }
 
   handleEdit(e) {
@@ -24,8 +22,6 @@ class Alert extends Component {
 
 
   handleEditTodo(e){
-    // const newPriorityState = this.state //what are we going to do with these variables with the state?
-    // const newTextState = this.state
     this.setState({ text: e.target.value });
   }
 
@@ -34,25 +30,17 @@ class Alert extends Component {
   }
   
   handleSave(e){
-    //console.log('hello from alert.handlesave')
-  
     this.props.onSave(this.props.todo.id, this.state.text, this.state.priority);
     this.setState({editEnabled: false}) 
-    //this was supposed to collapse the edit form by setting alert editenabled state back to false
-    
+  //save needs to update the state of the original todo, 
+  //make a copy of todos and match the id of the edited todo to the original 
+  //then setState to the edited version 
   }
-  //save needs to update the state of the original todo by using the ID 
-
-  //edit will change in this state but not the state of our parent component so we need to change
-  //the todo by selecting an ID?
-
-  //FOR LATER
 
 
-
-  // handleDelet(e) {
-  //   this.setState({ delete: e.target.value });
-  // }
+  handleDelete(e) {
+    this.props.onDelete(this.props.todo.id);
+  }
 
 
 
@@ -70,8 +58,8 @@ class Alert extends Component {
       return (
         <div className={`alert ${priority}`} role="alert" >
           <label htmlFor="textArea">Description</label> 
-          <textarea //should this be in the same alert with edit/delete or in new one?
-            className="update-todo-text" //used to say form-control before
+          <textarea 
+            className="update-todo-text" 
             id="textArea"
             rows="3" 
             defaultValue={this.props.todo.text} //defaultvale lets you change the value 
@@ -82,7 +70,7 @@ class Alert extends Component {
             How much of a priority is this?!
             </label>
             <select
-              className="mt-2 mb-4 form-control"
+              className="mt-2 mb-4 form-control create-todo-priority"
               id="exampleFormControlSelect1"
               onChange={this.handleEditTodoPriority} 
                 >
@@ -99,7 +87,7 @@ class Alert extends Component {
             Save
           </button>
         </div>
-      ) //make a save button that handles the change for the text area and priority
+      ) 
     }
 
     return (
@@ -108,10 +96,13 @@ class Alert extends Component {
           <p>
             <input type="checkbox" />
             {this.props.todo.text}
-            <button onClick={this.handleEdit} className="mx-2 btn btn-primary" role="button">
+            <button onClick={this.handleEdit} className="mx-2 btn btn-primary edit-todo" role="button">
               Edit
             </button>
-            <button className="btn btn-primary" role="button">
+            <button 
+            className="btn btn-primary delete-todo" 
+            role="button"
+            onClick={this.handleDelete}>
               Delete
             </button>
           </p>
@@ -123,4 +114,3 @@ class Alert extends Component {
 
 export default Alert;
 
-// const alert = this.state.priority
