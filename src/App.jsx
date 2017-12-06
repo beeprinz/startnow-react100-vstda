@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import Alert from './Alert'; 
+import Alert from './alert'; 
 
 class App extends Component { //parent component
   constructor(props) {
